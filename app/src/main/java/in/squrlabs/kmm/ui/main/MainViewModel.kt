@@ -1,17 +1,17 @@
 package `in`.squrlabs.kmm.ui.main
 
-import `in`.squrlabs.kmm.data.remote.dto.MovieDto
-import `in`.squrlabs.kmm.data.remote.dto.PopularMovieDto
-import `in`.squrlabs.kmm.data.remote.util.DtoResponse
+import `in`.squrlabs.kmm.data.local.entity.MovieEntity
+import `in`.squrlabs.kmm.data.local.util.DbResponse
+import `in`.squrlabs.kmm.data.remote.dto.MovieModel
 import `in`.squrlabs.kmm.data.repository.MovieRepository
 import `in`.squrlabs.kmm.util.SingleLiveEvent
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class MainViewModel(private val movieRepository: MovieRepository): ViewModel(), CoroutineScope {
-
     // Coroutine's background job
     private val job = Job()
 
@@ -19,20 +19,27 @@ class MainViewModel(private val movieRepository: MovieRepository): ViewModel(), 
     override val coroutineContext: CoroutineContext = Dispatchers.Main + job
 
     val showLoading = MutableLiveData<Boolean>()
-    val moviesList = MutableLiveData<List<MovieDto>>()
+    internal val moviesList: LiveData<List<MovieModel>>
     val showError = SingleLiveEvent<String>()
 
-    fun loadMovies() {
-        showLoading.value = true
+    init {
+        moviesList = movieRepository.loadMovies()
+    }
+
+    fun sync() {
 
         launch {
-            val result = withContext(Dispatchers.IO){ movieRepository.getMovies() }
+            val result = withContext(Dispatchers.IO) {
+                movieRepository.getMovies(1)
+                movieRepository.getMovies(2)
+                movieRepository.getMovies(3)
+                movieRepository.getMovies(4)
+            }
 
-            showLoading.value = false
-
-            when(result) {
-                is DtoResponse.Success -> moviesList.value = result.data.popularMovies
-                is DtoResponse.Error -> showError.value = result.exception.message
+            if (result){
+                showError.value = "Sync Completed"
+            } else {
+                showError.value = "Failed to Sync"
             }
         }
     }

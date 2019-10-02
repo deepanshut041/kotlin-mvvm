@@ -3,6 +3,7 @@ package `in`.squrlabs.kmm.ui.main
 import `in`.squrlabs.kmm.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -42,6 +43,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, showError, Toast.LENGTH_SHORT).show()
         })
 
-        viewModel.loadMovies()
+        viewModel.sync()
     }
 }

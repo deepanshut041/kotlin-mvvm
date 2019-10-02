@@ -1,6 +1,8 @@
 package `in`.squrlabs.kmm
 
-import `in`.squrlabs.kmm.di.appModules
+import `in`.squrlabs.kmm.di.dataModule
+import `in`.squrlabs.kmm.di.networkModule
+import `in`.squrlabs.kmm.di.viewModelModule
 import android.app.Application
 import com.facebook.drawee.backends.pipeline.Fresco
 import org.koin.android.ext.koin.androidContext
@@ -12,7 +14,11 @@ class App : Application() {
 
         startKoin {
             androidContext(this@App)
-            modules(appModules)
+            modules(listOf(
+                networkModule,
+                dataModule,
+                viewModelModule
+            ))
             Fresco.initialize(this@App)
         }
     }

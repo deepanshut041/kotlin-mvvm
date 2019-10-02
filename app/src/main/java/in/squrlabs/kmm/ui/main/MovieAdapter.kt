@@ -1,8 +1,7 @@
 package `in`.squrlabs.kmm.ui.main
 
 import `in`.squrlabs.kmm.R
-import `in`.squrlabs.kmm.data.remote.dto.MovieDto
-import android.util.Log
+import `in`.squrlabs.kmm.data.remote.dto.MovieModel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import kotlinx.android.synthetic.main.item_movie_card.view.*
 import kotlin.properties.Delegates
 
 class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    private var movieList: List<MovieDto> by Delegates.observable(emptyList()){
+    private var movieList: List<MovieModel> by Delegates.observable(emptyList()){
         _,_,_ -> notifyDataSetChanged()
     }
 
@@ -25,22 +24,22 @@ class MovieAdapter: RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         if (position != RecyclerView.NO_POSITION) {
-            val movieDto: MovieDto = movieList[position]
-            holder.bind(movieDto)
+            val movieModel: MovieModel = movieList[position]
+            holder.bind(movieModel)
         }
     }
 
     // Update recyclerView's data
-    fun updateData(newMovieList: List<MovieDto>) {
+    fun updateData(newMovieList: List<MovieModel>) {
         movieList = newMovieList
     }
 
     class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(movieDto: MovieDto){
-            itemView.fiAvatr.setImageURI("https://image.tmdb.org/t/p/w200${movieDto.posterPath}")
-            itemView.txTitle.text = movieDto.title
-            itemView.txTime.text = movieDto.releaseDate
-            itemView.txAuthors.text = movieDto.originalLanguage
+        fun bind(movieModel: MovieModel){
+            itemView.fiAvatr.setImageURI("https://image.tmdb.org/t/p/w200${movieModel.posterPath}")
+            itemView.txTitle.text = movieModel.title
+            itemView.txTime.text = movieModel.releaseDate
+            itemView.txAuthors.text = movieModel.originalLanguage
         }
     }
 }
