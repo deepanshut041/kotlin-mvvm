@@ -1,9 +1,7 @@
 package `in`.squrlabs.kmm.ui.main
 
-import `in`.squrlabs.kmm.data.local.entity.MovieEntity
-import `in`.squrlabs.kmm.data.local.util.DbResponse
-import `in`.squrlabs.kmm.data.remote.dto.MovieModel
-import `in`.squrlabs.kmm.data.repository.MovieRepository
+import `in`.squrlabs.data.domain.MovieModel
+import `in`.squrlabs.data.repository.MovieRepository
 import `in`.squrlabs.kmm.util.SingleLiveEvent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,12 +17,8 @@ class MainViewModel(private val movieRepository: MovieRepository): ViewModel(), 
     override val coroutineContext: CoroutineContext = Dispatchers.Main + job
 
     val showLoading = MutableLiveData<Boolean>()
-    internal val moviesList: LiveData<List<MovieModel>>
+    val moviesList: LiveData<List<MovieModel>> = movieRepository.loadMovies()
     val showError = SingleLiveEvent<String>()
-
-    init {
-        moviesList = movieRepository.loadMovies()
-    }
 
     fun sync() {
 

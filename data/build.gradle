@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
@@ -6,22 +6,16 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
+
+
     defaultConfig {
-        applicationId "in.squrlabs.kmm"
         minSdkVersion 17
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    dataBinding {
-        enabled = true
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
@@ -30,29 +24,36 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    // MultiDex Support
-    implementation 'androidx.multidex:multidex:2.0.1'
-    implementation project(':data')
-
-    // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${rootProject.kotlinVersion}"
-    implementation "androidx.core:core-ktx:${rootProject.ktxVersion}"
-    implementation "org.koin:koin-android-viewmodel:${koinViewModelVersion}"
-
-    // Android
     implementation "androidx.appcompat:appcompat:${rootProject.appCompatVersion}"
-    implementation "androidx.constraintlayout:constraintlayout:${rootProject.constraintLayoutVersion}"
-    implementation "androidx.recyclerview:recyclerview:${rootProject.recyclerViewVersion}"
-    implementation "androidx.cardview:cardview:${rootProject.cardViewVersion}"
+    implementation "androidx.core:core-ktx:${rootProject.ktxVersion}"
 
-    // Navigation Component
-    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
+    implementation "org.koin:koin-android:${rootProject.koinViewModelVersion}"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+
+    //OK HTTP
+    implementation "com.squareup.okhttp3:okhttp:${rootProject.okHttpVersion}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.okHttpVersion}"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:${rootProject.okHttpVersion}"
+
+    // Room
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+    kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
 
     // Coroutines for asynchronous calls (and Deferred’s adapter)
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.coroutinesVersion}"
@@ -66,10 +67,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:${rootProject.architectureComponentVersion}"
     implementation "androidx.lifecycle:lifecycle-reactivestreams:${rootProject.architectureComponentVersion}"
 
-    // Fresco for ImageView
-    implementation 'com.facebook.fresco:fresco:1.13.0'
-
-    // Test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
