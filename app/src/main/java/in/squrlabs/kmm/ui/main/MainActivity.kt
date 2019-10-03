@@ -1,6 +1,7 @@
 package `in`.squrlabs.kmm.ui.main
 
 import `in`.squrlabs.kmm.R
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -30,6 +31,11 @@ class MainActivity : AppCompatActivity() {
         rvMovies.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = movieAdapter
+        }
+
+        btnDetail.setOnClickListener {
+            val intent = Intent().setClassName( this, "in.squrlabs.detail.DetailActivity")
+            startActivity(intent)
         }
         initViewModel()
     }

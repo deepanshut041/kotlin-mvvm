@@ -2,7 +2,7 @@ package `in`.squrlabs.data.repository
 
 import `in`.squrlabs.data.local.dao.MovieDao
 import `in`.squrlabs.data.local.entity.MovieEntity
-import `in`.squrlabs.data.mappers.MovieMapper
+import `in`.squrlabs.data.mappers.from
 import `in`.squrlabs.data.remote.endpoint.MovieEndpoint
 import `in`.squrlabs.domain.model.MovieModel
 import `in`.squrlabs.domain.repository.MovieRepository
@@ -28,7 +28,7 @@ class MovieRepositoryImpl(
 
     override fun loadMovies(): Flowable<List<MovieModel>> {
         return movieDao.findAll().map { list ->
-            list.map { em -> MovieMapper.ModelMapper.from(em) }
+            list.map(MovieEntity::from)
         }
     }
 

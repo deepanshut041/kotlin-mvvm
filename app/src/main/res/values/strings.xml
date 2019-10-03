@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">kmm</string>
+    <string name="title_detail">Detail</string>
+    <string name="detail_actvity">Detail Actvity</string>
 </resources>
