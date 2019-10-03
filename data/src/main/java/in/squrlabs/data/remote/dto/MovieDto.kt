@@ -37,5 +37,8 @@ data class MovieDto(
     val video:Boolean,
 
     @SerializedName("vote_average")
-    val voteAverage: String
+    val voteAverage: String,
+
+    @SerializedName("id")
+    val id: Int
 )

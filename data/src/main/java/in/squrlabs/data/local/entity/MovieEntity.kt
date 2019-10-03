@@ -59,7 +59,8 @@ data class MovieEntity(
             popularity = movieDto.popularity,
             voteCount = movieDto.voteCount,
             video = movieDto.video,
-            voteAverage = movieDto.voteAverage
+            voteAverage = movieDto.voteAverage,
+            id = movieDto.id
         )
     }
 }

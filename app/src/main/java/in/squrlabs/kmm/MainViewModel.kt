@@ -1,4 +1,4 @@
-package `in`.squrlabs.kmm.ui.main
+package `in`.squrlabs.kmm
 
 import `in`.squrlabs.domain.model.MovieModel
 import `in`.squrlabs.domain.repository.MovieRepository

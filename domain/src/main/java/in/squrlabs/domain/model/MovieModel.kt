@@ -13,4 +13,5 @@ data class MovieModel(
     val popularity:Float,
     val voteCount:Int,
     val video:Boolean,
-    val voteAverage: String )
+    val voteAverage: String,
+    val id:Int)

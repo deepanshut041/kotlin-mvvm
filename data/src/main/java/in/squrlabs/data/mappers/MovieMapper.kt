@@ -16,5 +16,6 @@ fun MovieEntity.from() = MovieModel(
     popularity = popularity,
     voteCount = voteCount,
     video = video,
-    voteAverage = voteAverage
+    voteAverage = voteAverage,
+    id = id
 )

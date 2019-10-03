@@ -1,6 +1,5 @@
-package `in`.squrlabs.kmm.ui.main
+package `in`.squrlabs.kmm
 
-import `in`.squrlabs.kmm.R
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -33,10 +32,6 @@ class MainActivity : AppCompatActivity() {
             adapter = movieAdapter
         }
 
-        btnDetail.setOnClickListener {
-            val intent = Intent().setClassName( this, "in.squrlabs.detail.DetailActivity")
-            startActivity(intent)
-        }
         initViewModel()
     }
 
@@ -60,6 +55,12 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.showError.observe(this, Observer { showError ->
             Toast.makeText(this, showError, Toast.LENGTH_SHORT).show()
+        })
+
+        movieAdapter.movieId.observe(this, Observer {
+            val intent = Intent().setClassName( this, "in.squrlabs.detail.DetailActivity")
+            intent.putExtra("MOVIEID", it)
+            startActivity(intent)
         })
 
         viewModel.sync()

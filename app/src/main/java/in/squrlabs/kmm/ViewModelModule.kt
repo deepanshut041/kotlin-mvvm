@@ -1,6 +1,5 @@
-package `in`.squrlabs.kmm.di
+package `in`.squrlabs.kmm
 
-import `in`.squrlabs.kmm.ui.main.MainViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

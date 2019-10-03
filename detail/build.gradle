@@ -5,7 +5,6 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
 
-
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 29
@@ -17,8 +16,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-
-
 }
 
 dependencies {
@@ -30,6 +27,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${rootProject.kotlinVersion}"
     implementation "androidx.core:core-ktx:${rootProject.ktxVersion}"
     implementation "org.koin:koin-android-viewmodel:${koinViewModelVersion}"
+
+    // Material Libaray
+    implementation "com.google.android.material:material:${rootProject.materialDesignVersion}"
 
     // Rx Android
     implementation "io.reactivex.rxjava2:rxandroid:${rootProject.rxAndroidVersion}"

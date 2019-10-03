@@ -2,7 +2,6 @@ package `in`.squrlabs.kmm
 
 import `in`.squrlabs.data.di.dataModule
 import `in`.squrlabs.data.di.networkModule
-import `in`.squrlabs.kmm.di.viewModelModule
 import android.app.Application
 import com.facebook.drawee.backends.pipeline.Fresco
 import org.koin.android.ext.koin.androidContext
