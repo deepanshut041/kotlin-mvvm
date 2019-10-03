@@ -37,7 +37,10 @@ dependencies {
 
     // MultiDex Support
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    // Internal
     implementation project(':data')
+    implementation project(':domain')
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${rootProject.kotlinVersion}"
@@ -54,12 +57,9 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
 
-    // Coroutines for asynchronous calls (and Deferred’s adapter)
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.coroutinesVersion}"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${rootProject.coroutinesVersion}"
-
-    // Coroutines - Deferred adapter
-    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${rootProject.coroutinesAdapterVersion}"
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:${rootProject.rxJavaVersion}"
+    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.rxAndroidVersion}"
 
     // Android Architecture Components
     implementation "androidx.lifecycle:lifecycle-extensions:${rootProject.architectureComponentVersion}"

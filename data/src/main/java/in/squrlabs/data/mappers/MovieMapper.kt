@@ -1,22 +1,12 @@
-package `in`.squrlabs.data.domain
+package `in`.squrlabs.data.mappers
 
 import `in`.squrlabs.data.local.entity.MovieEntity
+import `in`.squrlabs.domain.model.MovieModel
 
-data class MovieModel(
-    val posterPath: String,
-    val adult: Boolean,
-    val overview: String,
-    val releaseDate: String,
-    val originalTitle: String,
-    val originalLanguage: String,
-    val title: String,
-    val backdropPath: String,
-    val popularity:Float,
-    val voteCount:Int,
-    val video:Boolean,
-    val voteAverage: String ){
+class MovieMapper {
 
     object ModelMapper {
+
         fun from(movieEntity: MovieEntity) = MovieModel(
             posterPath = movieEntity.posterPath,
             adult = movieEntity.adult,
@@ -31,5 +21,7 @@ data class MovieModel(
             video = movieEntity.video,
             voteAverage = movieEntity.voteAverage
         )
+
     }
+
 }

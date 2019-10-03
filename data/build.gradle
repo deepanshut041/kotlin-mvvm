@@ -34,10 +34,13 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Internal
+    implementation project(':domain')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${rootProject.kotlinVersion}"
     implementation "androidx.appcompat:appcompat:${rootProject.appCompatVersion}"
     implementation "androidx.core:core-ktx:${rootProject.ktxVersion}"
-
     implementation "org.koin:koin-android:${rootProject.koinViewModelVersion}"
 
     // Retrofit
@@ -50,17 +53,15 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.okHttpVersion}"
     implementation "com.squareup.okhttp3:okhttp-urlconnection:${rootProject.okHttpVersion}"
 
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:${rootProject.rxJavaVersion}"
+    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.rxAndroidVersion}"
+
     // Room
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
-
-    // Coroutines for asynchronous calls (and Deferred’s adapter)
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.coroutinesVersion}"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${rootProject.coroutinesVersion}"
-
-    // Coroutines - Deferred adapter
-    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${rootProject.coroutinesAdapterVersion}"
+    implementation "androidx.room:room-rxjava2:${rootProject.roomVersion}"
 
     // Android Architecture Components
     implementation "androidx.lifecycle:lifecycle-extensions:${rootProject.architectureComponentVersion}"

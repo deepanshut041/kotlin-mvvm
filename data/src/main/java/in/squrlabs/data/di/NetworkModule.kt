@@ -3,7 +3,6 @@ package `in`.squrlabs.data.di
 import `in`.squrlabs.data.BuildConfig
 import `in`.squrlabs.data.local.AppDatabase
 import com.google.gson.GsonBuilder
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -45,7 +44,6 @@ val networkModule = module {
         Retrofit.Builder()
             .baseUrl(MOVIES_API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(get()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(get())
             .build()

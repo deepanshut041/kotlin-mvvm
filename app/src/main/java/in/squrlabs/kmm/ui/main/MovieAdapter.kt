@@ -1,7 +1,7 @@
 package `in`.squrlabs.kmm.ui.main
 
+import `in`.squrlabs.domain.model.MovieModel
 import `in`.squrlabs.kmm.R
-import `in`.squrlabs.data.domain.MovieModel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

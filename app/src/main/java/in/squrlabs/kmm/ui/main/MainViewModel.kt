@@ -1,45 +1,37 @@
 package `in`.squrlabs.kmm.ui.main
 
-import `in`.squrlabs.data.domain.MovieModel
-import `in`.squrlabs.data.repository.MovieRepository
+import `in`.squrlabs.domain.model.MovieModel
+import `in`.squrlabs.domain.repository.MovieRepository
 import `in`.squrlabs.kmm.util.SingleLiveEvent
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
-class MainViewModel(private val movieRepository: MovieRepository): ViewModel(), CoroutineScope {
-    // Coroutine's background job
-    private val job = Job()
-
-    // Define default thread for Coroutine as Main and add job
-    override val coroutineContext: CoroutineContext = Dispatchers.Main + job
+class MainViewModel(private val movieRepository: MovieRepository): ViewModel() {
+    //
+    private val disposable = CompositeDisposable()
 
     val showLoading = MutableLiveData<Boolean>()
-    val moviesList: LiveData<List<MovieModel>> = movieRepository.loadMovies()
+    val moviesList: Flowable<List<MovieModel>> = movieRepository.loadMovies()
     val showError = SingleLiveEvent<String>()
 
     fun sync() {
 
-        launch {
-            val result = withContext(Dispatchers.IO) {
-                movieRepository.getMovies(1)
-                movieRepository.getMovies(2)
-                movieRepository.getMovies(3)
-                movieRepository.getMovies(4)
-            }
-
-            if (result){
-                showError.value = "Sync Completed"
-            } else {
-                showError.value = "Failed to Sync"
-            }
-        }
+        disposable.add(movieRepository.sync()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { showError.value = "Sync Completed"},
+                { showError.value = "Sync Failed" }
+            )
+        )
     }
 
     override fun onCleared() {
         super.onCleared()
-        job.cancel()
+        disposable.clear()
     }
 }

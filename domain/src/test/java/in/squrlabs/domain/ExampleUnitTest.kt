@@ -1,4 +1,4 @@
-package `in`.squrlabs.kmm
+package `in`.squrlabs.domain
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
