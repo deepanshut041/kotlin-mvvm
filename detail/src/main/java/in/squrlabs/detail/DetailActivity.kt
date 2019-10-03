@@ -8,6 +8,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
 
 class DetailActivity : AppCompatActivity() {
 
@@ -36,5 +37,10 @@ class DetailActivity : AppCompatActivity() {
                 { Log.e("Adapter", "Failed to get items")}
             )
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unloadKoinModules(detailModule)
     }
 }
